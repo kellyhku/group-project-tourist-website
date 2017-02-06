@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <?php
+            if (($result = $this->result) != null) {
+                echo "<h4>Title:&nbsp;&nbsp;{$result['idea_title']}</h4>";
+                echo "<h6>Author:&nbsp;&nbsp;{$result['user_first_name']}&nbsp;{$result['user_last_name']}</h6>";
+                echo "<h6>Destination:&nbsp;&nbsp;{$result['idea_destination']}</h6>";
+                echo "<h6>Date:&nbsp;&nbsp;{$result['idea_start_date']}&nbsp;-&nbsp;{$result['idea_end_date']}</h6>";
+                echo "<h6>Tag:&nbsp;&nbsp;{$result['idea_tag']}</h6>";
+            }
+            ?>
+
+            <br>
+            <br>
+            <ul class="nav  nav-tabs">
+                <li class="active"><a href="#">Comments</a></li>
+            </ul>
+            <div readonly id="comments"><span><br>Loading comments ~ ~ ~ </span></div>
+
+            <br>
+            <ul class="nav  nav-tabs">
+                <li class="active"><a href="#">Write your Comment here</a></li>
+            </ul>
+            <textarea  id="comment_content"></textarea>
+            <button class="btn btn-primary" id="comment_submit">comment</button>
+            <input type="hidden" id="comment_idea_id" value="<?= $result['idea_id'] ?>">
+            <input type="hidden" id="comment_loader">
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+        jQuery(function($) {
+            $(document).ready(function () { //perform actions when DOM is ready
+
+
+                $("#comment_submit").click(
+                    function () {
+                        var comment_content = $("#comment_content").val();
+                        var comment_idea_id = $("#comment_idea_id").val();
+                        var comment_user_id = <?=$_SESSION['user']['user_id']?>;
+                        if (comment_content == '') {
+                            alert("comment cannot be empty!");
+                            return;
+                        }
+                        else {
+                            $.post("/comment/comment", {
+                                'comment_content': comment_content,
+                                'comment_idea_id': comment_idea_id,
+                                'comment_user_id': comment_user_id
+                            });
+                            $("#comment_content").val("");
+                        }
+                        getComment();
+
+
+                    });
+
+
+
+
+            });
+        });
+
+        setInterval("getComment()",3000);
+
+        function getComment() {
+            var comment_idea_id = $("#comment_idea_id").val();
+            $("#comment_loader").load("/comment/getcomment?random="+Math.random(),{'comment_idea_id':comment_idea_id},
+                function (responseText,responseState,XMLHttpRequest) {
+                    var jsonObject = eval("("+responseText+")");
+                    if(jsonObject == "")
+                    {
+                        $("#comments").html("<span><br>No comments yet</span>");
+                    }
+                    else
+                    {
+                        $("#comments").html("<br>");
+                        $.each(jsonObject,function (key, value) {
+                            $("#comments").append("<span>"+value.comment_content+"<br><br>from:"+value.user_first_name+"<br>at:"+value.comment_date+"<hr></span>");
+                        })
+                    }
+                }
+            );
+        }
+
+
+</script>
+

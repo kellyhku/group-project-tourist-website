@@ -1,0 +1,106 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <br>
+            <form enctype="multipart/form-data" action="/idea/myideaeditprocess?idea_id=<?=$this->idea['idea_id']?>&destination_id=<?=$this->destination['destination_id']?>&tag_id=<?=$this->tag['tag_id']?>" method="POST" onsubmit="return checkIdea();">
+                <input class="form-control" id="idea_title" name="idea_title" type="text" value="<?=$this->idea['idea_title']?>">
+                <hr>
+                <select id='idea_destination_edit' name="idea_destination" class="form-control">
+
+                </select>
+                <div id="map_edit"></div>
+                <input type="hidden" id="destination_name_edit" value="<?=$this->destination['destination_name']?>">
+                <input type="hidden" id="latitude_edit" name="latitude" value="<?=$this->destination['destination_latitude']?>">
+                <input type="hidden" id="longitude_edit" name="longitude" value="<?=$this->destination['destination_longitude']?>">
+                <hr>
+                <input class="form-control date" id="idea_start_date" name="idea_start_date" type="text" >
+                <input class="form-control date" id="idea_end_date" name="idea_end_date" type="text" >
+
+                <hr>
+                <input class="form-control" id="idea_tag" name="idea_tag" type="text" value="<?=$this->idea['idea_tag'];?>">
+                <br>
+                <input class="btn btn-primary" type="submit" value="update">
+
+
+            </form>
+            <br>
+            <a href="/idea/myidea?idea_id=<?=$this->idea['idea_id']?>"><button class="btn btn-primary">give up edit</button></a>
+
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    jQuery(function($) {
+        $(document).ready(function () { //perform actions when DOM is ready
+
+            var map;
+            var myLatlng;
+            var marker;
+
+
+            myLatlng = {lat: parseFloat($("#latitude_edit").val()), lng: parseFloat($("#longitude_edit").val())};
+
+
+            map = new google.maps.Map(document.getElementById('map_edit'), {
+                center: myLatlng,
+                zoom: 5,
+                minZoom: 2,
+                maxZoom: 10
+            });
+
+
+            $("#latitude_edit").val(myLatlng.lat);
+            $("#longitude_edit").val(myLatlng.lng);
+
+            $("#idea_destination_edit").load(
+                "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $("#latitude_edit").val() + "," + $("#longitude_edit").val() + "&key=AIzaSyBAzlvERdn7z0oRAMQIw4ks14KzIok7GRI",
+                null,
+                function (responseText, responseState, XMLHttpRequest) {
+                    var jsonObject = eval("(" + responseText + ")");
+                    $("#idea_destination_edit").html("");
+                    $.each(jsonObject.results.reverse(), function (key, value) {
+                        $("#idea_destination_edit").append("<option value='" + value.formatted_address + "'>" + value.formatted_address + "</option>");
+                    })
+
+                }
+            )
+
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Drag to your destination!',
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend',
+                function (evt) {
+                    $("#latitude_edit").val(evt.latLng.lat());
+                    $("#longitude_edit").val(evt.latLng.lng());
+                    $("#idea_destination_edit").load(
+                        "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $("#latitude_edit").val() + "," + $("#longitude_edit").val() + "&key=AIzaSyBAzlvERdn7z0oRAMQIw4ks14KzIok7GRI",
+                        null,
+                        function (responseText, responseState, XMLHttpRequest) {
+                            var jsonObject = eval("(" + responseText + ")");
+                            $("#idea_destination_edit").html("");
+                            $.each(jsonObject.results.reverse(), function (key, value) {
+                                $("#idea_destination_edit").append("<option value='" + value.formatted_address + "'>" + value.formatted_address + "</option>");
+                            })
+
+                        }
+                    )
+                });
+
+
+
+            $("#idea_start_date").datepicker("setDate","<?=$this->idea['idea_start_date']?>");
+            $("#idea_end_date").datepicker("setDate","<?=$this->idea['idea_end_date']?>");
+
+
+        });
+    });
+</script>

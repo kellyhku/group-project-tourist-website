@@ -1,0 +1,163 @@
+
+<div class="container">
+
+
+
+    <!-- **********************注册项目********************** -->
+
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+
+
+
+            <!-- **********************注册表单********************** -->
+
+
+
+            <form class="form-horizontal" role="form" action="/register/registerprocess" method="post" onsubmit="return checkUser();">
+
+                <!-- **********************用户名********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="email_address" class="col-md-4 control-label">Email address</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="email_address" name="email_address"
+                               placeholder="Please enter your email address">
+                    </div>
+                    <label class="col-md-3 control-label" id="email_address_info"></label>
+                </div>
+
+
+
+                <!-- **********************用户密码********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="password_first" class="col-md-4 control-label">Enter password</label>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" id="password_first" name="password_first"
+                               placeholder="Please enter password">
+                    </div>
+                    <label class="col-md-3 control-label" id="password_first_info"></label>
+                </div>
+
+
+
+                <!-- **********************再次输入密码********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="password_second" class="col-md-4 control-label">Confirm password</label>
+                    <div class="col-md-5">
+                        <input type="password" class="form-control" id="password_second" name="password_second"
+                               placeholder="Confirm your password">
+                    </div>
+                    <label class="col-md-3 control-label" id="password_second_info"></label>
+                </div>
+
+
+
+                <!-- **********************用户邮箱********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="first_name" class="col-md-4 control-label">First name</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                               placeholder="Please enter your first name">
+                    </div>
+                    <label class="col-md-3 control-label" id="first_name_info"></label>
+                </div>
+
+
+
+                <!-- **********************用户电话********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="last_name" class="col-md-4 control-label">Last name</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="last_name" name="last_name"
+                               placeholder="Please enter your last name">
+                    </div>
+                    <label class="col-md-3 control-label" id="last_name_info"></label>
+                </div>
+
+
+
+
+                <!-- **********************验证码********************** -->
+
+
+
+                <div class="form-group">
+                    <label for="captcha_code" class="col-md-4 control-label">Captcha</label>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="captcha_code" name="captcha_code"
+                               placeholder="Please enter captcha">
+                    </div>
+                    <label class="col-md-3 control-label" id="captcha_code_info"></label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-5">
+                        <img src="" class="col-md-7" alt="Get Captcha" id="captcha_img">
+                    </div>
+                </div>
+
+
+
+                <!-- **********************登录重置********************** -->
+
+
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary col-md-offset-0">Sign up</button>
+                        <button type="reset" class="btn btn-primary col-md-offset-5" id="reset">Reset</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    </div>
+
+<script type="text/javascript">
+    function checkUser() {
+        var email_address_state = $('#email_address_info font').attr("color");
+        var password_first_state = $('#password_first_info font').attr("color");
+        var password_second_state = $('#password_second_info font').attr("color");
+        var first_name_state = $('#first_name_info font').attr("color");
+        var last_name_state = $('#last_name_info font').attr("color");
+        var captcha_code_state = $('#captcha_code_info font').attr("color");
+        if ((email_address_state == 'green')
+            && (password_first_state == 'green')
+            && (password_second_state == 'green')
+            && (first_name_state == 'green')
+            && (last_name_state == 'green')
+            && (captcha_code_state == 'green')
+        ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+</script>

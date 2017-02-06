@@ -1,0 +1,55 @@
+<div class="cover">
+    <div class="background-image-fixed cover-image container" >
+        <div class="row clearfix" id="index_div_title">
+            <div class="col-md-4 column"></div>
+            <div class="col-md-4 column text-center">
+                <br><br><br><br><br><br><br><br><br><br>
+                <h6>Travel Hunter! <br>~City Hunter in the Travel~</h6>
+
+            </div>
+            <div class="col-md-4 column"></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <h6>Travel hunter on the way !</h6>
+
+            <?php
+            if(empty($_SESSION['user']))
+            {
+                echo "<div class=\"row clearfix\">";
+                echo "<div class=\"col-md-6\">";
+                echo "<pre>";
+                echo "<a href=\"/login/login\" ><button class=\"btn btn-info\">Login</button></a><br>and share your idea with us !";
+                echo "</pre>";
+                echo "</div>";
+                echo "<div class=\"col-md-6\">";
+                echo "<pre>";
+                echo "<a href=\"/register/register\" ><button class=\"btn btn-info\">Sign up</button></a><br>and create your own account !<br>";
+                echo "</pre>";
+                echo "</div>";
+                echo "</div>";
+
+
+            }
+            else
+            {
+                echo "<pre>";
+                echo "Welcome you! Travel hunter! Enjoy your journey!<br><br>";
+                echo "<iframe src=\"https://www.youtube.com/embed/qwlW1nOYBJI\" frameborder=\"0\" allowfullscreen></iframe>";
+                echo "<p>&nbsp;</p>";
+                echo "<p>&nbsp;&nbsp;I've spent the past week in Malta exploring some of the beautiful \r\n landscapes in Malta, Gozo and Comino islands. It was my first time \r\n in this tiny country and I was completely blown away with how beautiful \r\nit is there. However, my time in Malta was short, so I could get only \r\na taste, but I'm sure I'll return sooner than later.</p>";
+                echo "<p>Come join the fun for 2 minutes with breathtaking nature beauties \r\nand amazing beaches! \r\nEnjoyyy watching!!</p>";
+                echo "</pre>";
+
+
+            }
+            ?>
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

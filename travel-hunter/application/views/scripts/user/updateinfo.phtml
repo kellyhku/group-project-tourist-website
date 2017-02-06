@@ -1,0 +1,38 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">user information</a></li>
+            </ul>
+            <div class="col-md-7">
+                <br>
+                <form class="form-horizontal" role="form" action="/user/updateinfoprocess" method="post">
+                    <ul class="list-group">
+                        <li class="list-group-item">email address:<br><input type="text" value="<?php echo $_SESSION['user']['user_email']?>" name="user_email"/></li>
+                        <li class="list-group-item">orignal password:<br><input type="password" name="user_password_orignal"/></li>
+                        <li class="list-group-item">new password:<br><input type="password" name="user_password_first"/></li>
+                        <li class="list-group-item">confirm password:<br><input type="password" name="user_password_second"/></li>
+                        <li class="list-group-item">first name<br><input type="text" value="<?php echo $_SESSION['user']['user_first_name']?>" name="user_first_name"/></li>
+                        <li class="list-group-item">last name<br><input type="text" value="<?php echo $_SESSION['user']['user_last_name']?>" name="user_last_name"/></li>
+                        <input type="submit" class="btn btn-primary col-md-offset-0" value="update now">
+
+                    </ul>
+                </form>
+                <a href="/user/user"><button class="btn btn-primary col-md-offset-0">give up updating</button></a>
+
+            </div>
+            <div class="col-md-4">
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item"><img alt='User Image' src="<?php echo $_SESSION['user']['user_img_url'];?>" class='img-rounded' width="100%"/></li>
+                    <a href="/user/uploadimg"><button class="btn btn-primary col-md-offset-0">upload</button></a>
+                </ul>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

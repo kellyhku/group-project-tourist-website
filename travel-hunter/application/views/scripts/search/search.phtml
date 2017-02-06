@@ -1,0 +1,117 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">Browse ideas in map</a></li>
+            </ul>
+            <div id="map_browse"></div>
+            <hr>
+            <div class="col-md-4">
+                <ul class="nav  nav-tabs">
+                    <li  class="active"><a href="#">Search by Tag</a></li>
+                </ul>
+                <form class="form-horizontal" role="form" action="/search/searchprocess?key=idea_tag" method="post">
+                    <input class="form-control" type="text" id="idea_tag" name="idea_tag" placeholder="Enter your tag">
+                    <input class="form-control btn btn-primary" type="submit" value="Search">
+                </form>
+                </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4">
+
+                <ul class="nav  nav-tabs">
+                    <li  class="active"><a href="#">Search by Idea Title</a></li>
+                </ul>
+                <form class="form-horizontal" role="form" action="/search/searchprocess?key=idea_title" method="post">
+                    <input class="form-control" type="text" id="idea_title" name="idea_title" placeholder="Enter your key words">
+                    <input class="form-control btn btn-primary" type="submit" value="Search">
+                </form>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(function($) {
+        $(document).ready(function () { //perform actions when DOM is ready
+
+
+            var map;
+            var marker;
+
+            map = new google.maps.Map(document.getElementById('map_browse'), {
+                center: {lat: 22.265650, lng: 114.140569},
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 10
+            });
+
+            <?php
+            $results = $this->results;
+            if(count($results)>0)
+            {
+            foreach ($results as $result)
+            {
+            ?>
+            marker = new google.maps.Marker({
+                position: {lat: <?=$result['destination_latitude']?>, lng: <?=$result['destination_longitude']?>},
+                map: map,
+                title: '<?=$result['idea_title']?>',
+                url: '/idea/ideaview?idea_id=<?=$result['idea_id']?>',
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                window.location.href = this.url;
+            });
+            <?php
+            }
+
+
+            }
+            ?>
+
+
+
+
+
+
+
+
+//            $("#map_browse").googleMap({
+//                zoom: 4,
+//                coords: [22.265650, 114.140569], // Map center (optional)
+//                type: "ROADMAP" // Map type (optional)
+//            });
+//
+//            <?php
+//            $results = $this->results;
+//            if(count($results)>0)
+//            {
+//                foreach ($results as $result)
+//                {
+//                    echo "$('#map_browse').addMarker({";
+//                    echo "coords: [{$result['destination_latitude']}, {$result['destination_longitude']}],";
+//                    echo "title: '{$result['idea_title']}',";
+//                    echo "url: '/idea/ideaview?idea_id={$result['idea_id']}'";
+//                    echo "});";
+//                }
+//
+//
+//            }
+//            ?>
+
+
+
+        });
+    });
+</script>
+

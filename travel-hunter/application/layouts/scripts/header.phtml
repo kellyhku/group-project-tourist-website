@@ -1,0 +1,48 @@
+<header>
+        <div class="row clearfix">
+            <div class="col-md-1 column">
+
+                <?php
+
+                ?>
+
+            </div>
+
+            <div class="col-md-7 column">
+                <?php
+                    if(empty($_SESSION['user']))
+                    {
+                        echo "<img src='/images/user_img/img_default/user_placeholder.png'class='img-circle'>";
+                    }
+                    else
+                    {
+                       echo "<a href='/user/user'><img src='{$_SESSION['user']['user_img_url']}' class='img-circle'></a> ";
+                    }
+
+                    echo "&nbsp;&nbsp;&nbsp;";
+                if(empty($_SESSION['user']))
+                {
+                    echo "Please <a href='/login/login'>login</a> first";
+                }
+                else
+                {
+                    echo "Hello, ".$_SESSION['user']['user_first_name'];
+                    echo "&nbsp;&nbsp;&nbsp;<a href='/login/logout'>Logout</a>";
+                }
+
+                ?>
+            </div>
+            <div class="col-md-4 column">
+                <ul></ul>
+                <ul class="list-inline">
+                    <li><a href="/index/index" >Home</a></li>
+                    <li><a href="/idea/idea" >Share</a></li>
+                    <li><a href="/search/search">Search</a></li>
+                    <li><a href="/index/about">About</a></li>
+                </ul>
+
+
+
+            </div>
+        </div>
+</header>

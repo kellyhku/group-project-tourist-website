@@ -1,0 +1,130 @@
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <form enctype="multipart/form-data" action="/idea/ideaprocess" method="POST" onsubmit="return checkIdea();">
+                <input class="form-control" id="idea_title" name="idea_title" type="text"
+                       placeholder="add your travel idea title here">
+                <select id='idea_destination' name="idea_destination" class="form-control">
+
+                </select>
+                <div id="map"></div>
+
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+
+                <input class="form-control date" id="idea_start_date" name="idea_start_date" type="text"
+                       placeholder="start date">
+                <input class="form-control date" id="idea_end_date" name="idea_end_date" type="text"
+                       placeholder="end date">
+
+
+                <input class="form-control" id="idea_tag" name="idea_tag" type="text" placeholder="add your tag">
+                <!--                <span>or select tags below</span>-->
+                <!--                <select id='tags' class="form-control">-->
+                <!---->
+                <!--                </select>-->
+
+                <input class="btn btn-primary" type="submit" value="create">
+                <input class="btn btn-primary" type="reset" value="reset">
+
+
+            </form>
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $(document).ready(function () { //perform actions when DOM is ready
+
+            var map;
+            var myLatlng;
+            var marker;
+
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 22.265651, lng: 114.140569},
+                zoom: 5,
+                minZoom: 2,
+                maxZoom: 10
+            });
+
+            myLatlng = {lat: 22.265651, lng: 114.140569};
+
+
+            $("#latitude").val(myLatlng.lat);
+            $("#longitude").val(myLatlng.lng);
+
+            $("#idea_destination").load(
+                "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $("#latitude").val() + "," + $("#longitude").val() + "&key=AIzaSyBAzlvERdn7z0oRAMQIw4ks14KzIok7GRI",
+                null,
+                function (responseText, responseState, XMLHttpRequest) {
+                    var jsonObject = eval("(" + responseText + ")");
+                    $("#idea_destination").html("");
+                    $.each(jsonObject.results.reverse(), function (key, value) {
+                        $("#idea_destination").append("<option value='" + value.formatted_address + "'>" + value.formatted_address + "</option>");
+                    })
+
+                }
+            )
+
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Drag to your destination!',
+                draggable: true
+            });
+
+            google.maps.event.addListener(marker, 'dragend',
+                function (evt) {
+                    $("#latitude").val(evt.latLng.lat());
+                    $("#longitude").val(evt.latLng.lng());
+                    $("#idea_destination").load(
+                        "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + $("#latitude").val() + "," + $("#longitude").val() + "&key=AIzaSyBAzlvERdn7z0oRAMQIw4ks14KzIok7GRI",
+                        null,
+                        function (responseText, responseState, XMLHttpRequest) {
+                            var jsonObject = eval("(" + responseText + ")");
+                            $("#idea_destination").html("");
+                            $.each(jsonObject.results.reverse(), function (key, value) {
+                                $("#idea_destination").append("<option value='" + value.formatted_address + "'>" + value.formatted_address + "</option>");
+                            })
+
+                        }
+                    )
+                });
+
+
+        });
+    });
+
+
+    function checkIdea() {
+        var idea_title = $("#idea_title").val();
+        var idea_destination = $("#idea_destination").val();
+        var idea_start_date = $("#idea_start_date").val();
+        var idea_end_date = $("#idea_end_date").val();
+        var idea_tag = $("#idea_tag");
+        if (idea_title == '') {
+            alert("Title cannot be empty!");
+            return false;
+        }
+        if (idea_destination == '') {
+            alert("Destination cannot be empty!");
+            return false;
+        }
+        if (!idea_start_date.match(/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)) {
+            alert("Invalid start date!");
+            return false;
+        }
+        if (!idea_end_date.match(/^((?:19|20)\d\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/)) {
+            alert("Invalid end date!");
+            return false;
+        }
+
+        return true;
+
+    }
+</script>

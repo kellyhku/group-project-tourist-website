@@ -1,0 +1,24 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <br>
+                <?php
+                if(($idea=$this->idea)!=null)
+                {
+                    echo "<h4>Title:&nbsp;&nbsp;{$idea['idea_title']}</h4>";
+                    echo "<h6>Author:&nbsp;&nbsp;{$_SESSION['user']['user_first_name']}</h6>";
+                    echo "<h6>Destination:&nbsp;&nbsp;{$idea['idea_destination']}</h6>";
+                    echo "<h6>Date:&nbsp;&nbsp;{$idea['idea_start_date']}&nbsp;-&nbsp;{$idea['idea_end_date']}</h6>";
+                    echo "<h6>Tag:&nbsp;&nbsp;{$idea['idea_tag']}</h6>";
+
+                    echo "<a href='/idea/myideaedit?idea_id={$idea['idea_id']}'><button class='btn btn-primary'>edit my idea</button></a>";
+                }
+                ?>
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">user information</a></li>
+            </ul>
+            <div class="col-md-7">
+                <br>
+                <ul class="list-group ">
+                    <li class="list-group-item ">email address: <?php echo $_SESSION['user']['user_email']?></li>
+                    <li class="list-group-item">password: **********</li>
+                    <li class="list-group-item">first name: <?php echo $_SESSION['user']['user_first_name']?></li>
+                    <li class="list-group-item">last name: <?php echo $_SESSION['user']['user_last_name']?></li>
+                    <a href="/user/updateinfo"><button class="btn btn-primary col-md-offset-0">update information</button></a>
+                </ul>
+                <a href="/idea/myidealist"><button class="btn btn-primary col-md-offset-0">check my ideas</button></a>
+            </div>
+
+            <div class="col-md-4">
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item"><img alt='User Image' src="<?php echo $_SESSION['user']['user_img_url'];?>" class='img-rounded' width="100%"/></li>
+                    <a href="/user/uploadimg"><button class="btn btn-primary">upload user image</button></a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

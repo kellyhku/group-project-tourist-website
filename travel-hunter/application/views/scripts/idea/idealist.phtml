@@ -1,0 +1,27 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">Idea list(<?=count($this->idea_list)?> results)</a></li>
+            </ul>
+            <br>
+                <ul class="list-group">
+                    <?php
+                    $idea_list = $this->idea_list;
+                    if($idea_list!=null)
+                    {
+                        foreach ($idea_list as $key => $idea)
+                        {
+                            echo "<a href='/idea/ideaview?idea_id={$idea['idea_id']}'><li class='list-group-item'>Title:{$idea['idea_title']}<br><br>Destination:{$idea['idea_destination']}<br><br>Date:{$idea['idea_start_date']}-{$idea['idea_end_date']}</li></a><br>";
+                        }                    }
+
+                    ?>
+                 </ul>
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

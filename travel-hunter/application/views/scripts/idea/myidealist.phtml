@@ -1,0 +1,31 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">my ideas</a></li>
+            </ul>
+            <br>
+                <ul class="list-group">
+                    <?php
+                    $my_idea_list = $this->my_idea_list;
+                    if($my_idea_list==null)
+                    {
+                        echo "you haven't post any ideas yet, click <a href='/idea/idea'>here</a> to post your new idea!";
+                    }
+                    else
+                    {
+                        foreach ($my_idea_list as $key => $idea)
+                        {
+                            echo "<a href='/idea/myidea?idea_id={$idea['idea_id']}'><li class='list-group-item'>Title:{$idea['idea_title']}<br><br>Destination:{$idea['idea_destination']}<br><br>Date:{$idea['idea_start_date']}-{$idea['idea_end_date']}</li></a><br>";
+                        }
+                    }
+                    ?>
+                 </ul>
+
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>

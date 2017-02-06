@@ -1,0 +1,44 @@
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column"></div>
+        <div class="col-md-8 column">
+            <ul class="nav  nav-tabs">
+                <li  class="active"><a href="#">user information</a></li>
+            </ul>
+            <div class="col-md-7">
+                <br>
+                <ul class="list-group">
+                    <li class="list-group-item">email address: <?php echo $_SESSION['user']['user_email']?></li>
+                    <li class="list-group-item">password: **********</li>
+                    <li class="list-group-item">first name: <?php echo $_SESSION['user']['user_first_name']?></li>
+                    <li class="list-group-item">last name: <?php echo $_SESSION['user']['user_last_name']?></li>
+                    <a href="/user/updateinfo"><button class="btn btn-primary col-md-offset-0">update information</button></a>
+
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <br>
+                <form enctype="multipart/form-data" action="/user/uploadimgprocess" method="POST">
+                <ul class="list-group">
+                    <li class="list-group-item"><img alt='User Image' src="<?php echo $_SESSION['user']['user_img_url'];?>" class='img-rounded' width="100%"/></li>
+                    <li class="list-group-item">
+                        <input id='uploadfile_info' type="text" value="no file selected">
+                        <span class="btn btn-primary btn-file">Browse<input type="file" class="jfilestyle" data-placeholder="image file" data-inputSize="120px" name="uploadfile" /></span>
+                    </li>
+                    <li class="list-group-item"><input class="btn btn-primary col-md-offset-0" type="submit" value="upload now" /></li>
+
+                </ul>
+                </form>
+                <li class="list-group-item"><a href="/user/user"><button class="btn btn-primary col-md-offset-0">give up uploading</button></a></li>
+
+
+
+
+            </div>
+        </div>
+        <div class="col-md-2 column"></div>
+    </div>
+
+</div>
